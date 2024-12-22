@@ -38,7 +38,7 @@ const htmlTemplate = (title, bodyContent) => `
       text-decoration: underline;
     }
     .hero {
-      background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+      background: url('https://images.ctfassets.net/aq13lwl6616q/7cS8gBoWulxkWNWEm0FspJ/c7eb42dd82e27279307f8b9fc9b136fa/nodejs_cover_photo_smaller_size.png') no-repeat center center/cover;
       color: white;
       text-align: center;
       padding: 100px 20px;
