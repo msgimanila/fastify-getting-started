@@ -58,7 +58,70 @@ const htmlTemplate = (title, bodyContent) => `
       width: 100%;
       bottom: 0;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+      cursor: pointer;
+    }
+    th:hover {
+      background-color: #ddd;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
   </style>
+  <script>
+    function sortTable(n) {
+      const table = document.getElementById("sortableTable");
+      let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      switching = true;
+      dir = "asc";
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount++;
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -92,15 +155,25 @@ app.get('/users', (request, reply) => {
   const users = [
     { id: 1, name: 'Alice' },
     { id: 2, name: 'Bob' },
+    { id: 3, name: 'Charlie' },
   ];
-  const userList = users.map(user => `<li>${user.name} (ID: ${user.id})</li>`).join('');
-  const bodyContent = `
+  const userTable = `
     <div style="padding: 20px;">
       <h2>Users</h2>
-      <ul>${userList}</ul>
+      <table id="sortableTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map(user => `<tr><td>${user.id}</td><td>${user.name}</td></tr>`).join('')}
+        </tbody>
+      </table>
     </div>
   `;
-  reply.type('text/html').send(htmlTemplate('Users', bodyContent));
+  reply.type('text/html').send(htmlTemplate('Users', userTable));
 });
 
 app.get('/about', (request, reply) => {
