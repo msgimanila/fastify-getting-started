@@ -4,7 +4,22 @@ import pointOfView from '@fastify/view';
 import ejs from 'ejs';
 
 const app = Fastify();
+// Register the view plugin
+app.register(pointOfView, {
+  engine: {
+    ejs,
+  },
+  root: './views', // Directory for EJS files
+});
 
+// Route for the home page
+app.get('/', (request, reply) => {
+  const users = [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+  ];
+  reply.view('index.ejs', { data: users }); // Pass data to the template
+});
 // HTML Template with Menus, Hero Section, Footer, and Images
 const htmlTemplate = (title, bodyContent) => `
 <!DOCTYPE html>
