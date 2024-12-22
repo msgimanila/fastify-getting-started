@@ -1,5 +1,7 @@
 import Fastify from 'fastify';
 import serverless from "serverless-http";
+import pointOfView from '@fastify/view';
+import ejs from 'ejs';
 
 const app = Fastify();
 
