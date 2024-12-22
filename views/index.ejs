@@ -3,79 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fastify Page</title>
+  <title>Fastify App</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
     }
     header, footer {
-      background-color: #333;
-      color: #fff;
-      padding: 1rem;
+      background: #333;
+      color: white;
       text-align: center;
+      padding: 10px 0;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: #f4f4f4;
     }
     table {
-      margin: 2rem auto;
-      border-collapse: collapse;
       width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
     }
     th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      padding: 10px;
+      text-align: left;
     }
     th {
-      cursor: pointer;
-      background-color: #333;
+      background: #333;
       color: white;
-    }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-    tr:hover {
-      background-color: #ddd;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to Fastify!</h1>
+    <h1>Welcome to Fastify App</h1>
   </header>
+  
+  <section class="hero">
+    <h2>Hero Section</h2>
+    <p>Welcome to the Fastify-powered application with dynamic EJS templates!</p>
+  </section>
+
   <main>
-    <h2>Sortable Table</h2>
-    <table id="sortable-table">
+    <h2 style="text-align: center;">User Table</h2>
+    <table>
       <thead>
         <tr>
-          <th onclick="sortTable(0)">ID</th>
-          <th onclick="sortTable(1)">Name</th>
+          <th>ID</th>
+          <th>Name</th>
         </tr>
       </thead>
       <tbody>
         <% data.forEach(user => { %>
-          <tr>
-            <td><%= user.id %></td>
-            <td><%= user.name %></td>
-          </tr>
-        <% }); %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+        </tr>
+        <% }) %>
       </tbody>
     </table>
   </main>
+
   <footer>
-    <p>&copy; 2024 Fastify Framework</p>
+    <p>&copy; 2024 Fastify App. All rights reserved.</p>
   </footer>
-  <script>
-    function sortTable(column) {
-      const table = document.getElementById("sortable-table");
-      const rows = Array.from(table.rows).slice(1);
-      const sortedRows = rows.sort((a, b) => {
-        const colA = a.cells[column].innerText;
-        const colB = b.cells[column].innerText;
-        return colA > colB ? 1 : -1;
-      });
-      sortedRows.forEach(row => table.appendChild(row));
-    }
-  </script>
 </body>
 </html>

@@ -7,19 +7,20 @@ const app = Fastify();
 
 // Register the view plugin with EJS
 app.register(pointOfView, {
-  engine: {
-    ejs,
-  },
-  root: './views', // Path to the EJS templates
+  engine: { ejs },
+  root: './views', // Path to EJS templates
 });
 
-// Define a route for the homepage
-app.get('/', (request, reply) => {
+// Define the homepage route
+app.get('/', async (request, reply) => {
   const users = [
     { id: 1, name: 'Alice' },
     { id: 2, name: 'Bob' },
+    { id: 3, name: 'Charlie' },
   ];
-  reply.view('index.ejs', { data: users }); // Render the EJS template with data
+
+  // Render the EJS template with user data
+  return reply.view('index.ejs', { data: users });
 });
 
 // Start the server
