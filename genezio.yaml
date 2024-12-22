@@ -1,17 +1,4 @@
-backend:
-    functions:
-        - entry: app.mjs
-          handler: handler
-          name: hello-world-fastify-app-function
-          path: ./
-          type: aws
-    language:
-        name: js
-        packageManager: npm
-    path: ./
-    scripts:
-        deploy:
-            - npm install
 name: fastify-app
-region: us-east-1
-yamlVersion: 2
+type: docker
+dockerfile: ./Dockerfile
+port: 8080
