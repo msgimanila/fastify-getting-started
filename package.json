@@ -1,14 +1,14 @@
 {
-  "name": "fastify-app",
+  "name": "fastify-basic-app",
   "version": "1.0.0",
+  "description": "A basic Fastify application with environment variables.",
+  "main": "app.mjs",
   "type": "module",
   "scripts": {
     "start": "node app.mjs"
   },
   "dependencies": {
-    "@fastify/view": "^8.0.0",
     "dotenv": "^16.0.0",
-    "ejs": "^3.1.10",
     "fastify": "^4.0.0"
   }
 }
